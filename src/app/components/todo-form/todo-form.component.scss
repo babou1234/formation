@@ -1,0 +1,83 @@
+@charset "UTF-8";
+
+
+.container-fluid {
+    background-color: #f7bd11;
+    width: 1200px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 0;
+	margin-top:0;
+}
+
+.container-fluid a {
+	color: #ffffff;
+	font-size:1 em; 
+}
+
+.navbar-brand {
+	font-size: 2em;
+	
+}
+
+.glyphicon {
+	margin-right : 15px;
+}
+
+.navbar-nav {
+	font-size: 1.5em;
+	margin-top: 11px;
+}
+
+body{
+	font-family: Helvetica, Arial, Verdana, sans-serif;
+	font-size: 1.4em;
+
+}
+
+#formPrincipal{
+
+    width: 500px;
+    height: 750px;
+    margin: auto;
+    margin-top: 5em;
+    padding: 10px;
+    background-color: #f3f3f3;
+    box-shadow: 2px 2px 15px #c0c0c0; 
+}
+#reponseform{
+
+    width: 500px;
+    height: 150px;
+    margin: auto;
+    margin-top: 5em;
+    padding: 10px;
+    background-color: #f3f3f3;
+    box-shadow: 2px 2px 15px #c0c0c0; 
+}
+
+.formCategorie{
+	margin: 5px;
+}
+
+.formCategorie label{
+	margin-top: 20px;
+	margin-bottom: 1px;
+}
+
+textarea {
+    overflow: auto;
+    resize: none;
+}
+
+button{
+    margin: 5px;
+    margin-top : 15px;
+    margin-left: 370px;
+}
+
+#Adminbtn {
+    margin: 5px;
+    margin-top : 15px;
+    margin-left: 257px;
+}

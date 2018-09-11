@@ -1,0 +1,18 @@
+
+<form id="todo-form" class="col-6 block-center" [formGroup]="todoForm" (submit)=saveTodo()>
+  <div>
+    <input type="text" formControlName="title" placeholder="A faire...">
+    <div class="alert alert-warning" *ngIf="title.invalid && title.touched">
+        Le titre du todo ne peut pas être vide <br>
+        et doit contenir au moins 5 caractères
+    </div>
+  </div>
+  <div>
+    <input type="date" formControlName="begin" placeholder="du">
+    <input type="date" formControlName="end" placeholder="au">
+  </div>
+  <div class="alert alert-warning" *ngIf="todoForm.hasError('begin')">
+    La date de fin doit être postérieure à la date de début
+  </div>
+  <button type="submit" class="btn btn-success" [disabled]="todoForm.invalid">submit</button>
+</form>

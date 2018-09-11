@@ -1,0 +1,30 @@
+
+<div style="text-align:center">
+  <button type="button" [disabled]="noneChecked()" (click)="deleteChecked()">Supprimer tout</button>
+<table [hidden]="todos.length == 0">
+    <thead>
+      <tr>
+        <th><input type="checkbox" (click)="checkUncheckAll()"></th>
+        <th>Titre</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let todo of todos; let i = index;">
+        <td>
+          <input type="checkbox" (click)="toggle(i)" [checked]=todo.isChecked>
+        </td>
+        <td [ngClass]="{strikeOut: todo.isChecked}">{{ todo.title}}</td>
+        <td [ngClass]="{strikeOut: todo.isChecked}">{{ todo.begin | date: 'dd-MM-yyyy'}}</td>
+        <td [ngClass]="{strikeOut: todo.isChecked}">{{ todo.end | date: 'dd-MM-yyyy'}}</td>
+        <td>
+          <button type="button" (click)="delete(i)">
+            X
+          </button>
+          <button class='btn btn-success' type='button' (click)="update(todo)" >MAJ</button>
+        </td>
+      </tr>
+    </tbody>
+</table>
+</div>
