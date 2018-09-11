@@ -1,0 +1,66 @@
+/**
+* @name custom.css
+* @author Aélion Cap - Juil 2018
+* @package assets/css
+* @version 0.1.0
+*/
+
+/**
+* Normalise body: sans marges
+*/
+body {
+	margin: 0; /**On supprime les marges par défaut*/
+	padding: 0; /** On supprime les marges intérieures par défaut*/
+	font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1em;
+	font-weight: normal;
+}
+
+/**
+* Normalise ul et ol: suppression des puces et des numéros
+*/
+ul, ol {
+	list-style-type: none;
+}
+
+/**
+* Normalise a: pas de soulignement, taille par défaut, police par défaut, couleur par défaut
+*/
+a {
+	font-family: inherit;
+	font-size: inherit;
+	color: inherit;
+	text-decoration: none;
+}
+#main-container {
+	width: 1200px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 0;
+	margin-top:0;
+}
+
+/**
+* Design du menu principal
+*/
+#main-menu ul {
+	line-height: 50px;
+} 
+
+#main-menu ul li {
+	display: inline-block; /* Des blocs oui...mais en ligne*/
+	width: 150px;
+	height: 50px;
+	border: solid 1px #000;
+	text-align: center;
+	vertical-align: middle;
+}
+#main-menu ul li a {
+	display: block;
+	height: inherit;
+	width: inherit;
+}
+#main-menu ul li a:hover {
+	background-color: black;
+	color: white;
+}
