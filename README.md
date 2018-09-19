@@ -47,4 +47,21 @@ $: ng serve
 Then go to http://localhost:4200
 
 That's all falks!
+
+BD:
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`todos_repo` /*!40100 DEFAULT CHARACTER SET utf8 */;
+
+USE `todos_repo`;
+
+/*Table structure for table `todos` */
+
+DROP TABLE IF EXISTS `todos`;
+
+CREATE TABLE `todos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  `begin` date NOT NULL,
+  `end` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 >>>>>>> cb3db9cd8547a0f2349772253d8ef688c1116c6b
