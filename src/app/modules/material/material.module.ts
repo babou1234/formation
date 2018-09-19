@@ -8,13 +8,39 @@ import {
   MatPaginatorModule,
   MatSortModule,
   MatIconModule,
-  MatButtonModule
+  MatButtonModule,
+  MatToolbarModule,
+  MatFormFieldModule,
+  MatSelectModule,
+  MatOptionModule
 } from '@angular/material';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    BrowserAnimationsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatIconModule,
+    MatButtonModule,
+    MatToolbarModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatOptionModule
   ],
-  declarations: []
+  declarations: [],
+  exports: [
+    BrowserAnimationsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatIconModule,
+    MatButtonModule,
+    MatToolbarModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatOptionModule
+  ],
 })
 export class MaterialModule { }

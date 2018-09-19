@@ -1,7 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { FormControl } from '@angular/forms';
 import { TodoService } from '../../shared/services/todo.service';
 import { TodoInterface } from '../../shared/interface/todo-interface';
+
+//importation des classes nécessaires=les composants Material
+import { MatTableDataSource, MatSort, MatSelect, MatOption } from '@angular/material';
+import { TodoHelper } from '../../shared/helpers/todo-helper';
+import { MatColumns } from './../../shared/interface/mat-columns';
 
 @Component({
   selector: 'todo-list',
@@ -9,6 +15,7 @@ import { TodoInterface } from '../../shared/interface/todo-interface';
   styleUrls: ['./todo-list.component.scss']
 })
 export class TodoListComponent implements OnInit {
+  @ViewChild(MatSort) sort: MatSort;
 
   /**
    * Abonnement à un todo qui vient de l'espace ou plutôt de todoService
@@ -21,8 +28,35 @@ export class TodoListComponent implements OnInit {
    */
   public todos: TodoInterface[];
 
+  /**
+   * Instance de la classe TodoHelper
+   */
+  public helper: TodoHelper;
+
+  /**
+   * Source des données pour le tableau Material
+   */
+  public dataSource = new MatTableDataSource<TodoInterface>();
+
+  /**
+   * Colonnes utilisées dans mat-table
+   */
+  public columns = new FormControl(); //de la liste
+
+  public selectedValue: String[];
+
+  /**
+   * Options réellement sélectionnées par l'utilisateur
+   */
+  public selectedOptions: String[];
+
   constructor(private todoService: TodoService) {
     this.todos = [];
+
+    //Instancier le helper
+    this.helper = new TodoHelper();
+    this.selectedValue = this.helper.optionalColumnsToArray();
+
     this.todoSubscription = this.todoService.getTodo().subscribe((todo) => {
         console.log('Observable Todo : ' + JSON.stringify(todo));
         //ajoute le todo à la liste des todos sans savoir s'il est nouveau ou si MAJ
@@ -34,6 +68,7 @@ export class TodoListComponent implements OnInit {
         } else {
           this.todos[index] = todo;
         }
+        this.dataSource.data = this.todos;
     });
    }
 
@@ -44,15 +79,21 @@ export class TodoListComponent implements OnInit {
     //récupère les todos existants dans la base
     this.todoService.getTodos().subscribe((todos) => {
       this.todos = todos;
-      console.log('Il y a ' + this.todos.length + ' todos à afficher')
+      console.log('Il y a ' + this.todos.length + ' todos à afficher');
+
+      //on définit à ce moment la source de données
+      this.dataSource.data = this.todos;
+      this.dataSource.sort = this.sort;
     });
   }
 
     //supprime le todo coché
-    public delete(index: number): void {
+    public delete(todo: TodoInterface): void {
+      const index = this.todos.indexOf(todo);
       const _todo = this.todos[index];
-      this.todoService.deleteTodo(_todo);
-      this.todos.splice(index,1);      
+      this.todos.splice(index,1); 
+      this.dataSource.data = this.todos;   
+      this.todoService.deleteTodo(_todo);//appelle le service  
     }
 
     /**
@@ -125,6 +166,7 @@ export class TodoListComponent implements OnInit {
         }
       }
       this.todos= _todos;
+
   }
 
   
@@ -133,4 +175,11 @@ export class TodoListComponent implements OnInit {
     this.todoService.sendTodo(todo);
   }
 
+/**
+ * Détecte un changement de sélection de colonnes
+ * @param event Evénément propagé
+ */
+public changeView(event: any): void {
+  this.helper.setDisplayedColumns(this.selectedOptions);
+}
 }

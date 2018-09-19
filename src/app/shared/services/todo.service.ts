@@ -4,8 +4,8 @@ import { HttpClient } from '@angular/common/http';
 
 //importer les modules d'observation
 import { Observable, Subject } from 'rxjs';
-import { TodoInterface } from './../interface/todo-interface';
-import { Constants } from './../constants/constants';
+import { TodoInterface } from '../interface/todo-interface';
+import { Constants } from '../constants/constants';
 
 @Injectable({ 
   providedIn: 'root'

@@ -1,30 +1,72 @@
 
 <div style="text-align:center">
-  <button type="button" [disabled]="noneChecked()" (click)="deleteChecked()">Supprimer tout</button>
-<table [hidden]="todos.length == 0">
-    <thead>
-      <tr>
-        <th><input type="checkbox" (click)="checkUncheckAll()"></th>
-        <th>Titre</th>
-        <th>&nbsp;</th>
-      </tr>
-    </thead>
 
-    <tbody>
-      <tr *ngFor="let todo of todos; let i = index;">
-        <td>
-          <input type="checkbox" (click)="toggle(i)" [checked]=todo.isChecked>
-        </td>
-        <td [ngClass]="{strikeOut: todo.isChecked}">{{ todo.title}}</td>
-        <td [ngClass]="{strikeOut: todo.isChecked}">{{ todo.begin | date: 'dd-MM-yyyy'}}</td>
-        <td [ngClass]="{strikeOut: todo.isChecked}">{{ todo.end | date: 'dd-MM-yyyy'}}</td>
-        <td>
-          <button type="button" (click)="delete(i)">
-            X
-          </button>
-          <button class='btn btn-success' type='button' (click)="update(todo)" >MAJ</button>
-        </td>
-      </tr>
-    </tbody>
-</table>
+
+<mat-toolbar color="primary">
+    <span>Outils</span>
+  
+    <!-- This fills the remaining space of the current row -->
+    <span class="move-right"></span>
+    <span>
+      <!--Liste deroulante pour afficher/masquer les colonnes du tableau-->
+      <mat-form-field>
+          <mat-select placeholder="Afficher" [formControl]="columns" [(ngModel)]="selectedValue" [(value)]="selectedOptions" (selectionChange)="changeView($event)" multiple>
+            <mat-option *ngFor="let column of helper.getOptionalColumns()" [value]="column.value">{{column.title}}</mat-option>
+          </mat-select>
+      </mat-form-field>
+        
+      <button type="button" class="btn btn-danger" [disabled]="noneChecked()" (click)="deleteChecked()">
+        <i class="fa fa-trash"></i>
+      </button>
+    </span>
+  </mat-toolbar>
+</div>
+<div>     
+  <mat-table #todos [dataSource]="dataSource" matSort>
+
+    <!--titre-->
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef>{{helper.getColumn('title').title}}</mat-header-cell>
+      <mat-cell *matCellDef="let todo"> {{ todo.title }}</mat-cell>
+    </ng-container>
+
+       <!--date de debut-->
+       <ng-container matColumnDef="begin">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>{{helper.getColumn('begin').title}}</mat-header-cell>
+          <mat-cell *matCellDef="let todo"> {{ todo.begin | date: 'dd-MM-yyyy' }}</mat-cell>
+        </ng-container>
+
+        <!--date de fin-->
+       <ng-container matColumnDef="end">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>{{helper.getColumn('end').title}}</mat-header-cell>
+          <mat-cell *matCellDef="let todo"> {{ todo.end | date: 'dd-MM-yyyy' }}</mat-cell>
+        </ng-container>
+
+        <!--Modification d'un todo-->
+        <ng-container matColumnDef="update">
+            <mat-header-cell *matHeaderCellDef>{{helper.getColumn('update').title}}</mat-header-cell>
+            <mat-cell *matCellDef="let todo">
+              <button mat-mini-fab color="accent" (click)="update(todo)">
+                <mat-icon aria-label="Modifier le todo">
+                  create
+                </mat-icon>
+              </button>
+            </mat-cell>
+        </ng-container>
+
+        <!--Modification d'un todo-->
+          <ng-container matColumnDef="delete">
+           <mat-header-cell *matHeaderCellDef>{{helper.getColumn('delete').title}}</mat-header-cell>
+              <mat-cell *matCellDef="let todo">
+                <button mat-mini-fab color="warn" (click)="delete(todo)">
+                  <mat-icon aria-label="Supprimer le todo">
+                    delete
+                  </mat-icon>
+                </button>
+              </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="helper.getDisplayedColumns()"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: helper.getDisplayedColumns();"></mat-row>
+  </mat-table>
 </div>

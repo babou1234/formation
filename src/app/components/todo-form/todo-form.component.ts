@@ -5,14 +5,14 @@ import {
   FormControl,
   Validators
  } from '@angular/forms';
- import {DateValidators} from './../../shared/validators/date-validators';
+ import {DateValidators} from '../../shared/validators/date-validators';
 
  import * as moment from 'moment';
 import { TodoService } from '../../shared/services/todo.service';
 import { TodoInterface } from '../../shared/interface/todo-interface';
 
 import { Subscription} from 'rxjs';
-import { JsonpCallbackContext } from '../../../../node_modules/@angular/common/http/src/jsonp';
+import { JsonpCallbackContext } from '@angular/common/http/src/jsonp';
 
 @Component({
   selector: 'todo-form',
